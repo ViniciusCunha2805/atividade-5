@@ -31,8 +31,12 @@ class MainActivity : ComponentActivity() {
             if (codigo.isNotEmpty()) {
                 desembolar(codigo, textoResultado)
             } else {
-                textoResultado.text = "Por favor, cole um código primeiro!"
+                textoResultado.text = "Por favor, cole um código correto primeiro!"
             }
         }
+    }
+
+    fun desembolar (cod, text){
+
     }
 }
