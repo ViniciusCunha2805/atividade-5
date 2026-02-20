@@ -36,7 +36,28 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun desembolar (cod, text){
+    private fun desembolar (base64Input: String, campoTexto: TextView){
+        try {
+            val bytes = android.util.Base64.decode(base64Input, android.util.Base64.DEFAULT)
 
+            val registros = bytes[0].toInt() and 0xFF
+            val bateria = bytes[1].toInt() and 0xFF
+
+            val relojoaria01 = ((bytes[2].toInt() and 0xFF) shl 24) or
+                    ((bytes[3].toInt() and 0xFF) shl 16) or
+                    ((bytes[4].toInt() and 0xFF) shl 8) or
+                    (bytes[5].toInt() and 0xFF)
+
+            val resultadoFinal = """
+            QT de registro: $registros
+            Nível da bateria: $bateria%
+            Relojoaria 01: $relojoaria01
+            """.trimIndent()
+
+            campoTexto.text = resultadoFinal
+
+        } catch (e: Exception) {
+            campoTexto.text = "Erro: Código Base64 inválido!"
+        }
     }
 }
